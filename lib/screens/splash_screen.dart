@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+
 import '../controllers/auth_controller.dart';
 import '../helpera/routes.dart';
+import '../services/notification_service.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -16,6 +18,15 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
     super.initState();
+
+    // 🔔 طلب إذن الإشعارات وتشغيل الإشعار الصوتي
+    Future.delayed(const Duration(seconds: 2), () async {
+      final bool granted = await NotificationService.requestPermission();
+      if (granted) {
+        NotificationService.showStartupNotification();
+      }
+    });
+
     _checkAuth();
   }
 

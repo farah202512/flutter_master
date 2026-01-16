@@ -11,7 +11,7 @@ import 'helpera/translations.dart';
 import 'helpera/routes.dart';
 import 'helpera/app_pages.dart';
 import 'helpera/constants.dart';
-
+import 'services/notification_service.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
@@ -23,6 +23,8 @@ void main() async {
   await Hive.openBox<Task>(AppConstants.boxTasks);
   await Hive.openBox<Category>(AppConstants.boxCategories);
   await Hive.openBox(AppConstants.boxSettings);
+
+  await NotificationService.init();
 
   runApp(const MyApp());
 }
